@@ -1,2 +1,2 @@
-# ardupilot_drone_02
+# ardupilot_drone
 Program for a DIY drone using ArduPilot
