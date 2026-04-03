@@ -1,0 +1,21 @@
+// Wifi接続設定
+const int RETRY_COUNT_MAX = 10;
+const int RETRY_DELAY_MSEC = 500;
+const int RETRY_WARNING_FLASH_TIME = 200;
+
+// ===== LED設定 =====
+#define PIN 27
+Adafruit_NeoPixel led(1, PIN, NEO_GRB + NEO_KHZ800);
+
+// ===== MAVLink UDP =====
+WiFiUDP udpMav;
+const int MAV_PORT = 14550;   // Mission Planner用
+
+// ===== UART =====
+#define RXD2 32
+#define TXD2 33
+#define MAVLINK_BUFFER 512
+const int BAUD_RATE = 115200;
+
+HardwareSerial mavSerial(2);
+uint8_t buffer[MAVLINK_BUFFER];
