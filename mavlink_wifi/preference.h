@@ -3,7 +3,7 @@ const char* WIFI_SSID = "your_ssid";
 const char* WIFI_PASSWORD = "your_password";
 
 
-// ===== Mission Planner ホスト =====
+// ===== Mission Planner ホストIP =====
 const char* GROUND_STATION_IP = "your_PC_IPAddress";
 
 
