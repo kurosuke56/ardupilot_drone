@@ -24,8 +24,16 @@ void ShowLEDConnected() {
   led.show();
 }
 
+// ===== BLUE LED(GCS Connected) =====
+void ShowLEDGcsConnected() {
+  led.setPixelColor(0, led.Color(0, 0, 255));
+  led.show();
+}
+
 // ===== Wi-Fi接続 =====
 void ConnectWifi() {
+  ShowLEDConnecting();
+
   while (1)
   {
     int retry_count = 0;
@@ -51,6 +59,8 @@ void ConnectWifi() {
     delay(RETRY_WARNING_FLASH_TIME);
     ShowLEDConnecting();
   }
+
+  ShowLEDConnecting();
 }
 
 // ===== setup =====
@@ -58,14 +68,13 @@ void setup() {
   Serial.begin(BAUD_RATE);
   led.begin();
 
-  ShowLEDConnecting();
-
+  // UART (FC接続)
   mavSerial.begin(BAUD_RATE, SERIAL_8N1, RXD2, TXD2);
 
   // Wi-Fi接続
   ConnectWifi();
 
-  // MAVLink開始
+  // UDP開始
   udpMav.begin(MAV_PORT);
 
   ShowLEDConnected();
@@ -79,20 +88,25 @@ void loop() {
     ConnectWifi();
   }
 
-  // ===== FC → PC =====
-  int availableBytes = mavSerial.available();
-  if (availableBytes > 0) {
-    int len = mavSerial.readBytes(buffer, min(availableBytes, MAVLINK_BUFFER));
-
-    udpMav.beginPacket(GROUND_STATION_IP, MAV_PORT);
-    udpMav.write(buffer, len);
-    udpMav.endPacket();
-  }
-
   // ===== PC → FC =====
   int packetSize = udpMav.parsePacket();
   if (packetSize) {
+    ShowLEDGcsConnected();
+    gcsIP   = udpMav.remoteIP();
+    //gcsPort = udpMav.remotePort();
+    gcsConnected = true;
+
     int len = udpMav.read(buffer, MAVLINK_BUFFER);
     mavSerial.write(buffer, len);
+  }
+
+  // ===== FC → PC =====
+  int availableBytes = mavSerial.available();
+  if (availableBytes > 0 && gcsConnected) {
+    int len = mavSerial.readBytes(buffer, min(availableBytes, MAVLINK_BUFFER));
+
+    udpMav.beginPacket(gcsIP, MAV_PORT);
+    udpMav.write(buffer, len);
+    udpMav.endPacket();
   }
 }

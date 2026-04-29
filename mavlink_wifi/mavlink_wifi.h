@@ -17,5 +17,11 @@ const int MAV_PORT = 14550;   // Mission Planner用
 #define MAVLINK_BUFFER 512
 const int BAUD_RATE = 115200;
 
+// ===== UART =====
 HardwareSerial mavSerial(2);
 uint8_t buffer[MAVLINK_BUFFER];
+
+// ===== GCS情報 =====
+IPAddress gcsIP;
+//uint16_t gcsPort = 0;
+bool gcsConnected = false;
