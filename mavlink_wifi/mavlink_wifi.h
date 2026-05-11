@@ -9,7 +9,9 @@ Adafruit_NeoPixel led(1, PIN, NEO_GRB + NEO_KHZ800);
 
 // ===== MAVLink UDP =====
 WiFiUDP udpMav;
-const int MAV_PORT = 14550;   // Mission Planner用
+const int MAV_PORT = 14550;     // 受信用
+const int SEND_PORT_MP = 14550; // Mission Planner送信先
+const int SEND_PORT_PY = 14551; // PYMAVLINK送信先
 
 // ===== UART =====
 #define RXD2 32

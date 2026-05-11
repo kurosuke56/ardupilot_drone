@@ -2,6 +2,7 @@
 #include <WiFiUdp.h>
 #include <HardwareSerial.h>
 #include <Adafruit_NeoPixel.h>
+#include <ESPmDNS.h>
 #include "preference.h"
 #include "mavlink_wifi.h"
 
@@ -74,6 +75,9 @@ void setup() {
   // Wi-Fi接続
   ConnectWifi();
 
+  // mDNS開始　ホスト名は、mDNS_NAMEで定義した名前＋.localとなる
+  MDNS.begin(mDNS_NAME);
+
   // UDP開始
   udpMav.begin(MAV_PORT);
 
@@ -105,7 +109,13 @@ void loop() {
   if (availableBytes > 0 && gcsConnected) {
     int len = mavSerial.readBytes(buffer, min(availableBytes, MAVLINK_BUFFER));
 
-    udpMav.beginPacket(gcsIP, MAV_PORT);
+    // Mission Plannerに送信
+    udpMav.beginPacket(gcsIP, SEND_PORT_MP);
+    udpMav.write(buffer, len);
+    udpMav.endPacket();
+
+    // PyMavLinkに送信
+    udpMav.beginPacket(gcsIP, SEND_PORT_PY);
     udpMav.write(buffer, len);
     udpMav.endPacket();
   }
