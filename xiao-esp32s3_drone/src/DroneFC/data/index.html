@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               viewport-fit=cover">
+
+<title>MYDRONE FC</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="hud">
+
+    <div class="top-bar">
+
+        <div class="logo">
+            MYDRONE FC
+        </div>
+
+        <div class="status-group">
+
+            <div id="connectionStatus"
+                 class="status disconnected">
+                DISCONNECTED
+            </div>
+
+            <div id="armStatus"
+                 class="status disarmed">
+                DISARMED
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="telemetry-panel">
+
+        <div class="telemetry-card">
+            RSSI
+            <span id="rssiValue">---</span>
+        </div>
+
+        <div class="telemetry-card">
+            LATENCY
+            <span id="latencyValue">---</span>
+        </div>
+
+    </div>
+
+	<details class="motor-details">
+
+		<summary>
+		Motor Telemetry
+		</summary>
+		
+	    <div class="motor-panel">
+
+	        <div class="motor-card">
+
+	            <div class="motor-label">
+	                M1
+	            </div>
+
+	            <div class="motor-bar">
+	                <div id="m1Bar"
+	                     class="motor-fill"></div>
+	            </div>
+
+	            <div id="m1Value">0</div>
+
+	        </div>
+
+	        <div class="motor-card">
+
+	            <div class="motor-label">
+	                M2
+	            </div>
+
+	            <div class="motor-bar">
+	                <div id="m2Bar"
+	                     class="motor-fill"></div>
+	            </div>
+
+	            <div id="m2Value">0</div>
+
+	        </div>
+
+	        <div class="motor-card">
+
+	            <div class="motor-label">
+	                M3
+	            </div>
+
+	            <div class="motor-bar">
+	                <div id="m3Bar"
+	                     class="motor-fill"></div>
+	            </div>
+
+	            <div id="m3Value">0</div>
+
+	        </div>
+
+	        <div class="motor-card">
+
+	            <div class="motor-label">
+	                M4
+	            </div>
+
+	            <div class="motor-bar">
+	                <div id="m4Bar"
+	                     class="motor-fill"></div>
+	            </div>
+
+	            <div id="m4Value">0</div>
+
+	        </div>
+		</div>
+		<div class="rc-panel">
+
+		    <div>
+		        THR:
+		        <span id="thrDebug">0</span>
+		    </div>
+
+		    <div>
+		        YAW:
+		        <span id="yawDebug">0</span>
+		    </div>
+
+		    <div>
+		        PIT:
+		        <span id="pitDebug">0</span>
+		    </div>
+
+		    <div>
+		        ROL:
+		        <span id="rolDebug">0</span>
+		    </div>
+
+		</div>
+	</details>
+
+    <div class="sticks-container">
+
+        <div class="stick-panel">
+
+            <div class="stick-title">
+                THROTTLE / YAW
+            </div>
+
+            <canvas id="leftStick"
+		        width="200"
+		        height="200"></canvas>
+
+        </div>
+
+	    <div class="center-panel">
+
+	        <button id="armToggleButton">
+	            ARM
+	        </button>
+
+	    </div>
+
+        <div class="stick-panel">
+
+            <div class="stick-title">
+                PITCH / ROLL
+            </div>
+
+            <canvas id="rightStick"
+		        width="200"
+		        height="200"></canvas>
+
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
