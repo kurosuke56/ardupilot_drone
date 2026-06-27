@@ -4,7 +4,7 @@
 // Pin definition
 ////////////////////////////////////////
 
-#define PIN_CS 44   // D7
+#define PIN_CS 44   // D7  今回はこの位置に割り当てた
 #define PIN_SCK 7   // D8
 #define PIN_MISO 8  // D9
 #define PIN_MOSI 9  // D10
